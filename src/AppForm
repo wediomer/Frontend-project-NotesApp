@@ -1,0 +1,65 @@
+import React, { useState } from 'react';
+import moment from 'moment';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+const AppForm = ({ addNote, setShowForm }) => {
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
+
+  const handleTitleChange = (e) => {
+    setTitle(e.target.value);
+  };
+
+  const handleContentChange = (e) => {
+    setContent(e.target.value);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const addNote = () => {
+        if (isFormValid) {
+          const newNote = {
+            id: Date.now().toString(),
+            title: title,
+            body: body,
+            date: moment().format('MMMM Do YYYY, h:mm:ss a'),
+            color: 'white',
+          };
+          setNotes([...notes, newNote]);
+          setTitle('');
+          setBody('');
+        }
+      
+      
+      };
+
+  return (
+    <div className="container" style={{ backgroundColor: '#f4f4f4', marginBottom: '20px' }}>
+      <h2 className="text-center">Add Note</h2>
+      <form onSubmit={handleSubmit}>
+        <div className="row mb-3">
+          <label htmlFor="title" className="col-sm-2 col-form-label">Title:</label>
+          <div className="col-sm-10">
+            <input className="form-control" type="text" id="title" placeholder="Title" value={title} onChange={handleTitleChange} required />
+          </div>
+        </div>
+        <div className="row mb-3">
+          <label htmlFor="content" className="col-sm-2 col-form-label">Content:</label>
+          <div className="col-sm-10">
+            <textarea className="form-control" id="content" rows="5" placeholder="Content" value={content} onChange={handleContentChange} required />
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-6">
+            <button type="submit" className="btn btn-primary">Add</button>
+          </div>
+          <div className="col-6 text-end">
+            <button className="btn btn-secondary" onClick={() => setShowForm(false)}>Cancel</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  );
+};
+
+export default AppForm;
